@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>Mi App</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<link href="styles.css" rel="stylesheet">
+</head>
+<body>
+
+<div class="phone">
+
+  <!-- ======== ACTIVITY 1 ======== -->
+  <div class="screen active" id="a1">
+    <div class="a1-orb " >
+        <img src="img/buap.png">
+        <img src="img/fcc_logo.png">
+    </div>
+
+    <div class="a1-tag">Bienvenido</div>
+    <div class="a1-name">Naomi <br>Otero Flores</div>
+
+    <div class="a1-info">
+      <div class="a1-chip"><b> · Carrera:</b>&nbsp;Ciencias de la Computacion </div>
+      <div class="a1-chip"><b> · Universidad:</b>&nbsp;BUAP</div>
+      <div class="a1-chip"><b> · Matrícula:</b>&nbsp;202235109 </div>
+      <div class="a1-chip"><b> · Puebla, México</b></div>
+    </div>
+
+    <button class="btn btn-primary" onclick="goTo('a2')">
+      Comenzar Registro
+    </button>
+  </div>
+
+  <!-- ======== ACTIVITY 2 ======== -->
+  <div class="screen" id="a2">
+    <div class="a2-header">
+      <h2>-- > Registro</h2>
+      <p>Completa todos los campos</p>
+    </div>
+
+    <div class="a2-body">
+      <!-- Nombre -->
+      <div class="field">
+        <label>· Nombre completo</label>
+        <div class="input-wrap">
+          <input type="text" id="f_nombre" placeholder="Escribe tu nombre" oninput="validateNombre()">
+        </div>
+        <span class="err-msg" id="e_nombre"></span>
+      </div>
+
+      <!-- Correo -->
+      <div class="field">
+        <label>· Correo electrónico</label>
+        <div class="input-wrap">
+          <input type="email" id="f_correo" placeholder="correo@ejemplo.com" oninput="validateCorreo()">
+        </div>
+        <span class="err-msg" id="e_correo"></span>
+      </div>
+
+      <!-- Teléfono -->
+      <div class="field">
+        <label>· Teléfono</label>
+        <div class="input-wrap">
+          <input type="tel" id="f_tel" placeholder="10 dígitos" maxlength="10" oninput="validateTel()">
+        </div>
+        <span class="err-msg" id="e_tel"></span>
+      </div>
+
+      <!-- Contraseña -->
+      <div class="field">
+        <label>· Contraseña</label>
+        <div class="input-wrap">
+          <input type="password" id="f_pass" placeholder="Mínimo 8 caracteres" oninput="validatePass()">
+          <button class="toggle-pass" type="button" onclick="togglePass()">👁</button>
+        </div>
+        <div class="pass-checks" id="passChecks">
+          <div class="chk" id="chk_len"><div class="chk-dot"></div>8+ caracteres</div>
+          <div class="chk" id="chk_upper"><div class="chk-dot"></div>Mayúscula</div>
+          <div class="chk" id="chk_lower"><div class="chk-dot"></div>Minúscula</div>
+          <div class="chk" id="chk_num"><div class="chk-dot"></div>Número</div>
+          <div class="chk" id="chk_special"><div class="chk-dot"></div>Especial (!@#...)</div>
+          <div class="chk" id="chk_seq"><div class="chk-dot"></div>Sin secuencias</div>
+        </div>
+        <span class="err-msg" id="e_pass"></span>
+      </div>
+
+      <!-- Fecha nacimiento -->
+      <div class="field">
+        <label>· Fecha de nacimiento</label>
+        <div class="input-wrap">
+          <input type="date" id="f_fecha" oninput="validateFecha()">
+        </div>
+        <span class="err-msg" id="e_fecha"></span>
+      </div>
+
+      <!-- Género -->
+      <div class="field">
+        <label>Género</label>
+        <div class="input-wrap">
+          <select id="f_genero" onchange="validateGenero()" style="padding-left:42px">
+            <option value="">Selecciona...</option>
+            <option>Masculino</option>
+            <option>Femenino</option>
+          </select>
+        </div>
+        <span class="err-msg" id="e_genero"></span>
+      </div>
+    </div>
+
+    <div class="a2-footer">
+      <button class="btn btn-danger" style="flex:1" onclick="handleSalir()">Salir</button>
+      <button class="btn btn-primary" style="flex:2" onclick="handleContinuar()">Continuar →</button>
+    </div>
+  </div>
+
+  <!-- ======== ACTIVITY 3 ======== -->
+  <div class="screen" id="a3">
+    <video id="videoEl" autoplay playsinline muted></video>
+    <canvas id="snapCanvas"></canvas>
+    <div class="flash" id="flashEl"></div>
+
+    <div class="corner corner-tl"></div>
+    <div class="corner corner-tr"></div>
+    <div class="corner corner-bl"></div>
+    <div class="corner corner-br"></div>
+
+    <div class="cam-ui-top">
+      <div class="cam-label">Cámara</div>
+    </div>
+
+    <div class="cam-overlay">
+      <div id="camStatus">Iniciando cámara...</div>
+      <div id="galleryWrap" style="display:none; width:100%">
+        <div style="font-size:11px; color:rgba(255,255,255,0.4); margin-bottom:6px; letter-spacing:1px; text-transform:uppercase;">Fotos guardadas</div>
+        <div class="gallery" id="gallery"></div>
+      </div>
+      <div class="shutter-ring" id="shutterBtn" onclick="takePhoto()">
+        <div class="shutter-inner"></div>
+      </div>
+      <div class="cam-btns">
+        <button class="btn-cam btn-cam-exit" onclick="exitCamera()">✕ Salir</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ======== MODAL ======== -->
+  <div class="modal-backdrop" id="modal">
+    <div class="modal-sheet">
+      <div class="modal-handle"></div>
+      <div class="modal-title" id="modalTitle"></div>
+      <div id="modalBody"></div>
+      <button class="btn btn-primary modal-close" id="modalBtn" onclick="closeModal()">Cerrar</button>
+    </div>
+  </div>
+
+</div>
+<script src="funciones.js"></script>
+
+</body>
+</html>
